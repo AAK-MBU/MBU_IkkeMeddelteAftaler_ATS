@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
-    reset(logger)
+    startup()
     appointments = get_appointments()
     data = list(appointments.values())
     # ruff: noqa: DTZ005
