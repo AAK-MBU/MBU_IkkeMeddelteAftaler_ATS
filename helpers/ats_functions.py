@@ -23,7 +23,7 @@ def get_workqueue_items(workqueue: Workqueue, return_data=False):
 
     headers = {"Authorization": f"Bearer {token}"}
 
-    workqueue_items = {} if return_data else set
+    workqueue_items = {} if return_data else set()
 
     page = 1
     size = 200  # max allowed
