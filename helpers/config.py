@@ -8,3 +8,12 @@ MAX_RETRY = 10
 MAX_CONCURRENCY = 100  # tune based on backend capacity
 MAX_RETRIES = 3  # transient failure retries per item
 RETRY_BASE_DELAY = 0.5  # seconds (exponential backoff)
+
+# ----------------------
+# Solteq Tand application settings
+# ----------------------
+APP_PATH = "C:\\Program Files (x86)\\TM Care\\TM Tand\\TMTand.exe"
+MONTH_START = 1
+MONTH_MID = 15
+MONTH_END = 31
+TMP_PATH = R"C:\tmp\IkkeMeddelteAftaler"

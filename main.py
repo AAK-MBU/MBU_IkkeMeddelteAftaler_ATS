@@ -24,7 +24,7 @@ async def populate_queue(workqueue: Workqueue):
     logger = logging.getLogger(__name__)
     logger.info("Populating workqueue...")
 
-    items_to_queue = retrieve_items_for_queue(logger=logger)
+    items_to_queue = retrieve_items_for_queue()
 
     queue_references = {str(r) for r in ats_functions.get_workqueue_items(workqueue)}
 
@@ -38,7 +38,7 @@ async def populate_queue(workqueue: Workqueue):
         else:
             new_items.append(item)
 
-    await concurrent_add(workqueue, new_items, logger)
+    await concurrent_add(workqueue, new_items)
     logger.info("Finished populating workqueue.")
 
 
@@ -48,7 +48,7 @@ async def process_workqueue(workqueue: Workqueue):
     logger = logging.getLogger(__name__)
     logger.info("Processing workqueue...")
 
-    startup(logger=logger)
+    startup()
 
     error_count = 0
 
@@ -99,10 +99,10 @@ async def process_workqueue(workqueue: Workqueue):
                     context=context,
                 )
                 error_count += 1
-                reset(logger=logger)
+                reset()
 
     logger.info("Finished processing workqueue.")
-    close(logger=logger)
+    close()
 
 
 async def finalize(workqueue: Workqueue):
@@ -113,7 +113,7 @@ async def finalize(workqueue: Workqueue):
     logger.info("Finalizing process...")
 
     try:
-        finalize_process()
+        finalize_process(workqueue)
         logger.info("Finished finalizing process.")
 
     except BusinessError as e:

@@ -2,16 +2,24 @@
 
 import asyncio
 import logging
+from datetime import datetime
 
 from automation_server_client import Workqueue
 
 from helpers import config
+from processes.application_handler import reset
+from processes.subprocesses.get_appointments import get_appointments
+
+logger = logging.getLogger(__name__)
 
 
 def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
-    data = []
-    references = []
+    reset(logger)
+    appointments = get_appointments()
+    data = list(appointments.values())
+    # ruff: noqa: DTZ005
+    references = [f"{datetime.now().strftime('%d%m%Y')}_{k}" for k in appointments]
 
     items = [
         {"reference": ref, "data": d} for ref, d in zip(references, data, strict=True)
@@ -20,9 +28,7 @@ def retrieve_items_for_queue() -> list[dict]:
     return items
 
 
-async def concurrent_add(
-    workqueue: Workqueue, items: list[dict], logger: logging.Logger
-) -> None:
+async def concurrent_add(workqueue: Workqueue, items: list[dict]) -> None:
     """
     Populate the workqueue with items to be processed.
     Uses concurrency and retries with exponential backoff.
