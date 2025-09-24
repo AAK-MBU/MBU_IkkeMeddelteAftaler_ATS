@@ -7,7 +7,7 @@ from datetime import datetime
 from automation_server_client import Workqueue
 
 from helpers import config
-from processes.application_handler import startup
+from processes.application_handler import startup, close
 from processes.subprocesses.get_appointments import get_appointments
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,7 @@ def retrieve_items_for_queue() -> list[dict]:
     items = [
         {"reference": ref, "data": d} for ref, d in zip(references, data, strict=True)
     ]
-
+    close()
     return items
 
 
