@@ -5,6 +5,9 @@ This is the main entry point for the process
 import asyncio
 import logging
 import sys
+import atexit
+import tempfile
+import gc
 
 from automation_server_client import AutomationServer, Workqueue
 from mbu_rpa_core.exceptions import BusinessError, ProcessError
@@ -130,6 +133,21 @@ async def finalize(workqueue: Workqueue):
         raise pe from e
 
 
+def _release_before_exit():
+    try:
+        logging.shutdown()
+    except Exception:
+        pass
+    try:
+        gc.collect()
+    except Exception:
+        pass
+    try:
+        os.chdir(tempfile.gettempdir())
+    except Exception:
+        pass
+
+
 if __name__ == "__main__":
     ats_functions.init_logger()
 
@@ -147,4 +165,6 @@ if __name__ == "__main__":
     if "--finalize" in sys.argv:
         asyncio.run(finalize(prod_workqueue))
 
+    atexit.register(_release_before_exit())
+    
     sys.exit(0)
