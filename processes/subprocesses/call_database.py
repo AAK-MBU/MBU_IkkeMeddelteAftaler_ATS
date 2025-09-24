@@ -1,7 +1,6 @@
 """This file contains functions with calls to SQL database"""
 
-import time
-from datetime import datetime
+from datetime import datetime, time
 
 import pandas as pd
 from mbu_dev_shared_components.database.connection import RPAConnection
