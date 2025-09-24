@@ -86,7 +86,7 @@ def send_manual_list(filepath: str):
             rpa_conn.get_constant("ikkemeddelteaftaler_procargs").get("value", "")
         )
 
-    email_recipient = procargs["email_recipient"]
+    email_recipient = procargs["email_receiver"]
     email_subject = f"Manuel liste for perioden {start_date}-{end_date}"
     email_body = procargs["email_body"]
     attachments = [smtp_util.EmailAttachment(file=excel_buffer, file_name=filename)]
