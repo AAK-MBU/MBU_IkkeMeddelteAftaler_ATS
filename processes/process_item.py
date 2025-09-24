@@ -42,7 +42,9 @@ def process_item(item_data: dict, item_reference: str):
             date=start_date,
         )
 
-        raise BusinessError from e  # Raises BusinessError in maun file to handle workitem status
+        raise BusinessError(
+            "Person tilføjet til manuel liste"
+        ) from e  # Raises BusinessError in maun file to handle workitem status
 
 
 def handle_patient(item_data: dict, item_reference: str, solteq_app: SolteqTandApp):
