@@ -165,6 +165,6 @@ if __name__ == "__main__":
     if "--finalize" in sys.argv:
         asyncio.run(finalize(prod_workqueue))
 
-    atexit.register(_release_before_exit())
+    atexit.register(_release_before_exit)
     
     sys.exit(0)
