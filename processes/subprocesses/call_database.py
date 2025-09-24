@@ -34,14 +34,10 @@ def get_manual_list(start_date: str, end_date: str):
             FROM [RPA].[rpa].[MBU006IkkeMeddelteAftaler]
             WHERE Date BETWEEN ? AND ?
         """
-        res = rpa_conn.execute_query(query, (start_date, end_date))
-        # Get all rows from query
-        rows = res.fetchall()
+        res = rpa_conn.execute_query(query, (start_date, end_date), return_dict=True)
 
         # Package in pandas
-        manual_list = pd.DataFrame.from_records(
-            rows, columns=[col[0] for col in res.description]
-        )
+        manual_list = pd.DataFrame(res)
 
     return manual_list
 
