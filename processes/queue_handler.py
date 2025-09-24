@@ -7,7 +7,7 @@ from datetime import datetime
 from automation_server_client import Workqueue
 
 from helpers import config
-from processes.application_handler import startup, close
+from processes.application_handler import close, startup
 from processes.subprocesses.get_appointments import get_appointments
 
 logger = logging.getLogger(__name__)
