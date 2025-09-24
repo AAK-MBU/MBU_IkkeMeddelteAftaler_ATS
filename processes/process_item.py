@@ -31,7 +31,12 @@ def process_item(item_data: dict, item_reference: str):
     try:
         handle_patient(item_data, item_reference, solteq_app)
     except Exception as e:
-        sql_info["description_var"] = str(e)
+        description = (
+            str(e)
+            if isinstance(e, BusinessError)
+            else "Ukendt processeringsfejl. Tjek status på aftalen."
+        )
+        sql_info["description_var"] = description
         # Connects to RPA sql
         logger.info("Tilføjer person til manuel liste")
 
