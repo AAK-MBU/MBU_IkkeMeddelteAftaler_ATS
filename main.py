@@ -100,6 +100,7 @@ async def process_workqueue(workqueue: Workqueue):
                 )
                 error_count += 1
                 reset()
+        break
 
     logger.info("Finished processing workqueue.")
     close()
@@ -146,5 +147,5 @@ if __name__ == "__main__":
 
     if "--finalize" in sys.argv:
         asyncio.run(finalize(prod_workqueue))
-   
+
     sys.exit(0)
