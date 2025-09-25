@@ -42,11 +42,8 @@ def soft_close():
     """Function for closing applications softly"""
     logger.info("Closing applications softly...")
     solteq_app = get_app()
-    try:
-        solteq_app.close_solteq_tand()
-        logger.info("Closed application softly")
-    except Exception as e:
-        logger.error("Could not close application softly")
+    solteq_app.close_solteq_tand()
+    logger.info("Closed application softly")
 
 
 def hard_close():
@@ -65,11 +62,9 @@ def hard_close():
 
 def close():
     """Function for closing applications softly or hardly if necessary"""
-    solteq_app = get_app()
-    if solteq_app:
+    try:
         soft_close()
-    solteq_app = get_app()
-    if solteq_app:
+    except Exception:
         hard_close()
 
 
