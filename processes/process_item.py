@@ -11,7 +11,7 @@ from mbu_dev_shared_components.solteqtand.application.exceptions import (
 )
 from mbu_rpa_core.exceptions import BusinessError
 
-from processes.application_handler import get_app
+from processes.application_handler import get_app, reset
 from processes.subprocesses.call_database import insert_manual_list
 from processes.subprocesses.check_patient import (
     NoAppointmentFoundError,
@@ -46,6 +46,8 @@ def process_item(item_data: dict, item_reference: str):
             sql_info=sql_info,
             date=start_date,
         )
+
+        reset()
 
         raise BusinessError(
             "Person tilføjet til manuel liste"
