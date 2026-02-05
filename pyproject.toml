@@ -11,7 +11,7 @@ dependencies = [
     "itk_dev_shared_components",
     "pillow",
     "tzdata",
-    "pandas",
+    "pandas==3.0.0",
     "openpyxl",
 ]
 
